@@ -16,18 +16,10 @@ int main (int argc, char **argv)
 	if (f <= 0)
 		return (0);
 	result = get_next_line(f);
-	if (result == NULL)
-		return (0);
-	printf("1 - %s\n", result);
-	free(result);
-	result = get_next_line(f);
-	if (result == NULL)
-		return (0);
-	printf("2 - %s\n", result);
-	free(result);
-	result = get_next_line(f);
-	if (result == NULL)
-		return (0);
-	printf("3 - %s\n", result);
-	free(result);
+	while (result != NULL)
+	{
+		printf("%s\n", result);
+		free(result);
+		result = get_next_line(f);
+	}
 }
