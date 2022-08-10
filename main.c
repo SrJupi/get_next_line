@@ -18,7 +18,7 @@ int main (int argc, char **argv)
 	result = get_next_line(f);
 	while (result != NULL)
 	{
-		printf("%s\n", result);
+		printf("RESULT --> %s\n", result);
 		free(result);
 		result = get_next_line(f);
 	}
