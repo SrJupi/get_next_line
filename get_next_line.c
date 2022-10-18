@@ -6,7 +6,7 @@
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:57:25 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/18 12:38:34 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2022/10/18 12:48:43 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ char	*reset_buf(t_gnl *gnl, int new_line)
 	char	*buf_tmp;
 	int		i;
 
+	if (gnl->buf_size == new_line + 1)
+		return (final_buf(gnl));
 	tmp = (char *) malloc (new_line + 2);
 	i = 0;
 	if (tmp != NULL)
@@ -83,7 +85,7 @@ void	ft_join(t_gnl *gnl, char *str, int size)
 {
 	int		i;
 	char	*tmp;
-	
+
 	tmp = (char *) malloc (gnl->buf_size + size + 1);
 	if (tmp != NULL)
 	{
