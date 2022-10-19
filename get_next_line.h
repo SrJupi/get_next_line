@@ -6,7 +6,7 @@
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:13:44 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/18 12:01:18 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:33:30 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	*reset_buf(t_gnl *gnl, int new_line);
 char	*get_next_line(int fd);
 char	*get_line(t_gnl *gnl, int fd);
 char	*read_from_file(t_gnl *gnl, int fd);
-void	ft_clean(char **str);
 void	ft_join(t_gnl *gnl, char *str, int size);
+void	ft_strcpy(char *dst, char *src, int size);
 
 
 #endif

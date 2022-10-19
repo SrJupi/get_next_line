@@ -6,7 +6,7 @@
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:57:25 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/18 12:48:43 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2022/10/19 17:33:33 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,49 +36,39 @@ char	*final_buf(t_gnl *gnl)
 	return (tmp);
 }
 
+void	ft_strcpy(char *dst, char *src, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
+
 char	*reset_buf(t_gnl *gnl, int new_line)
 {
 	char	*tmp;
 	char	*buf_tmp;
 	int		i;
 
-	if (gnl->buf_size == new_line + 1)
-		return (final_buf(gnl));
 	tmp = (char *) malloc (new_line + 2);
+	buf_tmp = (char *) malloc (gnl->buf_size - new_line);
 	i = 0;
-	if (tmp != NULL)
+	if (tmp != NULL && buf_tmp != NULL)
 	{
-		while (i <= new_line)
-		{
-			tmp[i] = gnl->buf[i];
-			i++;
-		}
-		tmp[i] = '\0';
-		buf_tmp = (char *) malloc (gnl->buf_size - new_line + 1);
-		if (buf_tmp != NULL)
-		{
-			while (i < gnl->buf_size)
-			{
-				buf_tmp[i - (new_line + 1)] = gnl->buf[i];
-				i++;
-			}
-			buf_tmp[i - (new_line + 1)] = '\0';
-			gnl->buf_size -= (new_line + 1);
-			ft_clean(&gnl->buf);
-			gnl->buf = buf_tmp;
-			buf_tmp = NULL;
-		}
+		ft_strcpy(tmp, gnl->buf, new_line + 1);
+		ft_strcpy(buf_tmp, gnl->buf + new_line + 1,
+			gnl->buf_size - new_line - 1);
+		gnl->buf_size -= (new_line + 1);
+		free(gnl->buf);
+		gnl->buf = buf_tmp;
+		buf_tmp = NULL;
 	}
 	return (tmp);
-}
-
-void	ft_clean(char **str)
-{
-	if (str != NULL && *str != NULL)
-	{
-		free (*str);
-		*str = NULL;
-	}
 }
 
 void	ft_join(t_gnl *gnl, char *str, int size)
@@ -102,7 +92,7 @@ void	ft_join(t_gnl *gnl, char *str, int size)
 		}
 		tmp[i] = '\0';
 	}
-	ft_clean(&gnl->buf);
+	free(gnl->buf);
 	gnl->buf = tmp;
 	gnl->buf_size += size;
 }
@@ -124,13 +114,13 @@ char	*read_from_file(t_gnl *gnl, int fd)
 			if (read_size <= 0)
 			{
 				gnl->has_finished = 1;
-				ft_clean(&tmp);
-				break ;
+				free(tmp);
+				return (final_buf(gnl));
 			}
 			tmp[read_size] = '\0';
 			new_line = has_new_line(tmp);
 			ft_join(gnl, tmp, read_size);
-			ft_clean(&tmp);
+			free(tmp);
 		}
 	}
 	return (get_line(gnl, fd));
@@ -145,7 +135,11 @@ char	*get_line(t_gnl *gnl, int fd)
 	{
 		line = has_new_line(gnl->buf);
 		if (line >= 0)
+		{
+			if (line + 1 == gnl->buf_size)
+				return (final_buf(gnl));
 			return (reset_buf(gnl, line));
+		}
 		else if (gnl->has_finished)
 			return (final_buf(gnl));
 	}
