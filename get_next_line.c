@@ -6,7 +6,7 @@
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 11:57:25 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/19 17:33:33 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2022/10/19 18:41:21 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,11 @@ char	*read_from_file(t_gnl *gnl, int fd)
 	int		new_line;
 	int		read_size;
 
-	tmp = NULL;
+	tmp = (char *) malloc (BUFFER_SIZE + 1);
 	new_line = -1;
-	while (new_line < 0)
+	if (tmp != NULL)
 	{
-		tmp = (char *) malloc (BUFFER_SIZE + 1);
-		if (tmp != NULL)
+		while (new_line < 0)
 		{
 			read_size = read (fd, tmp, BUFFER_SIZE);
 			if (read_size <= 0)
@@ -120,8 +119,8 @@ char	*read_from_file(t_gnl *gnl, int fd)
 			tmp[read_size] = '\0';
 			new_line = has_new_line(tmp);
 			ft_join(gnl, tmp, read_size);
-			free(tmp);
 		}
+		free(tmp);
 	}
 	return (get_line(gnl, fd));
 }
