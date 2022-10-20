@@ -6,7 +6,7 @@
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 12:31:09 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/20 12:31:44 by lsulzbac         ###   ########.fr       */
+/*   Updated: 2022/10/20 13:02:58 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ char	*reset_buf(t_gnl *gnl, int new_line)
 		return (clean_buf(gnl));
 	buf_tmp = (char *) malloc (gnl->buf_size - new_line);
 	if (buf_tmp == NULL)
+	{
+		free(tmp);
 		return (clean_buf(gnl));
+	}
 	ft_strcpy(tmp, gnl->buf, new_line + 1);
 	ft_strcpy(buf_tmp, gnl->buf + new_line + 1,
 		gnl->buf_size - new_line - 1);
@@ -70,30 +73,28 @@ char	*reset_buf(t_gnl *gnl, int new_line)
 	return (tmp);
 }
 
-void	ft_join(t_gnl *gnl, char *str, int size)
+int	ft_join(t_gnl *gnl, char *str, int size)
 {
 	int		i;
 	char	*tmp;
 
 	tmp = (char *) malloc (gnl->buf_size + size + 1);
-	if (tmp != NULL)
+	if (tmp == NULL)
+		return (1);
+	i = 0;
+	while (i < gnl->buf_size)
 	{
-		i = 0;
-		while (i < gnl->buf_size)
-		{
-			tmp[i] = gnl->buf[i];
-			i++;
-		}
-		while (i < gnl->buf_size + size)
-		{
-			tmp[i] = str[i - gnl->buf_size];
-			i++;
-		}
-		tmp[i] = '\0';
-		free(gnl->buf);
-		gnl->buf = tmp;
-		gnl->buf_size += size;
+		tmp[i] = gnl->buf[i];
+		i++;
 	}
-	else
-		clean_buf(gnl);
+	while (i < gnl->buf_size + size)
+	{
+		tmp[i] = str[i - gnl->buf_size];
+		i++;
+	}
+	tmp[i] = '\0';
+	free(gnl->buf);
+	gnl->buf = tmp;
+	gnl->buf_size += size;
+	return (0);
 }
