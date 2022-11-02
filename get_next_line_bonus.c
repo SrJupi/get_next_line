@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 11:57:25 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/20 13:22:25 by lsulzbac         ###   ########.fr       */
+/*   Created: 2022/11/02 11:43:27 by lsulzbac          #+#    #+#             */
+/*   Updated: 2022/11/02 11:48:56 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*clean_buf(t_gnl *gnl)
 {

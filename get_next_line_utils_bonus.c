@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsulzbac <lsulzbac@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/20 12:31:09 by lsulzbac          #+#    #+#             */
-/*   Updated: 2022/10/20 13:02:58 by lsulzbac         ###   ########.fr       */
+/*   Created: 2022/11/02 11:55:52 by lsulzbac          #+#    #+#             */
+/*   Updated: 2022/11/02 11:56:02 by lsulzbac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	has_new_line(char *str)
 {
